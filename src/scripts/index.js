@@ -200,7 +200,6 @@ const handleAvatarFromSubmit = (evt) => {
   setUserAvatar({ avatar: avatarInput.value })
     .then((userData) => {
       profileAvatar.style.backgroundImage = `url(${userData.avatar})`;
-      avatarForm.reset();
       closeModalWindow(avatarFormModalWindow);
     })
     .catch((err) => {
@@ -255,7 +254,6 @@ const handleCardFormSubmit = (evt) => {
         })
       );
 
-      cardForm.reset();
       closeModalWindow(cardFormModalWindow);
     })
     .catch((err) => {
