@@ -139,7 +139,7 @@ const handleInfoClick = (cardId) => {
         return;
       }
 
-      cardInfoModalTitle.textContent = cardData.name;
+      cardInfoModalTitle.textContent = "Информация о карточке";
       cardInfoModalInfoList.replaceChildren();
       cardInfoModalUserList.replaceChildren();
 
