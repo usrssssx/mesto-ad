@@ -1,10 +1,10 @@
 const activeLikeButtonClass = "card__like-button_is-active";
 
-export const isCardLiked = (likeButton) => {
+const isCardLiked = (likeButton) => {
   return likeButton.classList.contains(activeLikeButtonClass);
 };
 
-export const updateCardLike = (likeButton, likeCount, likes = [], userId) => {
+const renderCardLikes = (likeButton, likeCount, likes = [], userId) => {
   const isLikedByUser = likes.some((like) => like._id === userId);
 
   likeButton.classList.toggle(activeLikeButtonClass, isLikedByUser);
@@ -43,8 +43,10 @@ export const createCardElement = (
   cardElement.querySelector(".card__title").textContent = data.name;
 
   if (onLikeIcon) {
-    updateCardLike(likeButton, likeCount, data.likes, userId);
-    likeButton.addEventListener("click", () => onLikeIcon(likeButton, cardId, likeCount));
+    const renderLikes = (likes) => renderCardLikes(likeButton, likeCount, likes, userId);
+
+    renderLikes(data.likes);
+    likeButton.addEventListener("click", () => onLikeIcon(cardId, isCardLiked(likeButton), renderLikes));
   }
 
   if (cardOwnerId && userId && cardOwnerId !== userId) {
