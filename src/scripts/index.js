@@ -6,7 +6,11 @@
   Из index.js не допускается что то экспортировать
 */
 
-import { createCardElement } from "./components/card.js";
+import {
+  createCardElement,
+  isCardLiked,
+  updateCardLike,
+} from "./components/card.js";
 import { openModalWindow, closeModalWindow, setCloseModalWindowEventListeners } from "./components/modal.js";
 import { enableValidation, clearValidation } from "./components/validation.js";
 import {
@@ -122,16 +126,10 @@ const handlePreviewPicture = ({ name, link }) => {
 };
 
 const handleLikeCard = (likeButton, cardId, likeCount) => {
-  const isLiked = likeButton.classList.contains("card__like-button_is-active");
+  const isLiked = isCardLiked(likeButton);
   changeLikeCardStatus(cardId, isLiked)
     .then((cardData) => {
-      const isNowLiked = (cardData.likes || []).some(
-        (like) => like._id === currentUserId
-      );
-      likeButton.classList.toggle("card__like-button_is-active", isNowLiked);
-      if (likeCount) {
-        likeCount.textContent = cardData.likes ? cardData.likes.length : 0;
-      }
+      updateCardLike(likeButton, likeCount, cardData.likes, currentUserId);
     })
     .catch((err) => {
       console.log(err);
