@@ -14,7 +14,7 @@ const renderCardLikes = (likeButton, likeCount, likes = [], userId) => {
   }
 };
 
-export const deleteCard = (cardElement) => {
+export const deleteCardElement = (cardElement) => {
   cardElement.remove();
 };
 

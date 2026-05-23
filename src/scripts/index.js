@@ -6,7 +6,7 @@
   Из index.js не допускается что то экспортировать
 */
 
-import { createCardElement } from "./components/card.js";
+import { createCardElement, deleteCardElement } from "./components/card.js";
 import { openModalWindow, closeModalWindow, setCloseModalWindowEventListeners } from "./components/modal.js";
 import { enableValidation, clearValidation } from "./components/validation.js";
 import {
@@ -224,7 +224,7 @@ const handleRemoveCardSubmit = (evt) => {
   renderLoading(removeCardSubmitButton, true, "Сохранение...", removeCardSubmitButtonText);
   deleteCardById(cardToRemove.cardId)
     .then(() => {
-      cardToRemove.cardElement.remove();
+      deleteCardElement(cardToRemove.cardElement);
       cardToRemove = null;
       closeModalWindow(removeCardModalWindow);
     })
